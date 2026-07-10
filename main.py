@@ -1,22 +1,11 @@
-from telegram import Update
-from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
-import pytesseract
-from PIL import Image
+import telebot
 
-التوكن الخاص بك
-TOKEN = "6095098175:AAEpdMXWPON43lR0OvgDFhUooBfp5DV9qsA"
+TOKEN = "6095098175:AAEpdMXWPON431R00vgDFhUooBfp5DV9qsA"
+bot = telebot.TeleBot(TOKEN)
 
-تعريف البوت مع إعدادات اتصال مخففة لتجاوز الخطأ
-def run_bot():
-app = ApplicationBuilder().token(TOKEN).build()
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    bot.reply_to(message, "البوت يعمل يا مهندس علي!")
 
-# دالة بسيطة للرد
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-await update.message.reply_text("البوت يعمل يا مهندس علي!")
-
-app.add_handler(MessageHandler(filters.ALL, echo))
-print("جاري تشغيل البوت... إذا ظهر خطأ فهذا يعني أن شبكتك تحجب الوصول.")
-app.run_polling()
-
-if name == 'main':
-run_bot()
+print("جاري تشغيل البوت...")
+bot.polling()
